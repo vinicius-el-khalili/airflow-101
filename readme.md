@@ -44,6 +44,7 @@ airflow tasks test <dag_id> <task_id> [execution_date]
 ### 2. Airflow DAGs
 
 Directed Acyclic Graph
+- workflows are represented as **Directed Acyclic Graph** - the ones from network theory. yes.
 - **Directed**: there is an inherent flow representing dependencies between components
 - **Acyclic**: does not loop/cycle/repeat
 - **Graph**: the actual set of taks and relationships/dependencies between them
@@ -55,13 +56,30 @@ within Airflow, DAGs:
 - are made up of **components** (tipically tasks) to be executed, such as **operators**, **sensors**, **schedulers**, **workers**, **triggers** etc
 
 define a DAG
-- example DAG
 ```python
 from airflow import DAG
 from datetime import datetime
 default_arguments = {
     'owner': 'jdoe',
     'email': 'jdoe@datacamp.com',
-    'start_date' :datetime(2020,1,20)
+    'start_date' :datetime(2025,1,20)
 }
+
+with DAG('etl_workflow',default_args=default_arguments) as etl_dag:
+    ...
 ```
+DAGs on the command line
+- `airflow -h`: help/descriptions
+- `airflow dags list`: show all recognized DAGs
+- https://airflow.apache.org/docs/apache-airflow/stable/cli-and-env-variables-ref.html
+
+command line vs Python
+
+- use command line to
+    - start airflow processes (such as a web server or a scheduler)
+    - manually run DAGs / tasks
+    - get logging information from airflow
+
+- use Python to
+    - create a DAG
+    - edit the individual properties of a DAG
